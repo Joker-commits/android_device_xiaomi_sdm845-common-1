@@ -39,16 +39,9 @@ BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 TARGET_KERNEL_ARCH := arm64
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-  TARGET_KERNEL_CLANG_COMPILE := true
-  TARGET_KERNEL_SOURCE := kernel/xiaomi/sdm845
-  TARGET_KERNEL_CLANG_PATH := $(shell pwd)/proton-clang
-  KERNEL_TOOLCHAIN_arm64 := $(shell pwd)/proton-clang
-  KERNEL_TOOLCHAIN_PREFIX_arm64 := aarch64-linux-gnu
-  KERNEL_TOOLCHAIN_arm := $(shell pwd)/proton-clang
-  KERNEL_TOOLCHAIN_PREFIX_arm := arm-linux-gnueabi
-  TARGET_KERNEL_ADDITIONAL_FLAGS := AS=llvm-as AR=llvm-ar NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip
-endif
+TARGET_KERNEL_SOURCE := kernel/xiaomi/sdm845
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(shell pwd)/eva-gcc/arm64/bin/aarch64-elf-
+TARGET_KERNEL_CROSS_COMPILE_PREFIX_ARM32 := $(shell pwd)/eva-gcc/arm/bin/arm-eabi-
 
 # Platform
 TARGET_BOARD_PLATFORM := sdm845
